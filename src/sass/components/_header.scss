@@ -1,0 +1,85 @@
+.header {
+  background-color: $main-bg;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  height: $header-height;
+
+  &__logo {
+    @include flex(center, start);
+    position: absolute;
+    inset: 1;
+    height: 100%;
+    pointer-events: none;
+    top: 0;
+
+    img {
+      height: 35px;
+    }
+  }
+
+  &__menu {
+    @include flex(center, end);
+    height: 100%;
+    font-size: 1.2rem;
+    margin-top: 45px;
+
+    &__item ~ &__item {
+      margin-left: 39px;
+
+      @include tablet {
+        margin-left: 20px;
+      }
+
+      @include mobile {
+        margin-left: 10px;
+      }
+    }
+
+    &__item.active {
+      font-weight: 600;
+      color: $main-color;
+    }
+
+    &__item:hover {
+      color: $main-color;
+    }
+
+    &__right {
+      @include flex(center, center);
+      height: 100%;
+    }
+    &__right {
+      font-size: 1.8rem;
+
+      &__item {
+        max-width: 4rem;
+        margin: 0 1.4rem;
+
+        a {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        @include tablet {
+          margin-left: 10px;
+        }
+      }
+
+      @include mobile {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+.main-nav {
+  width: 70%;
+  margin-top: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50px;
+}
