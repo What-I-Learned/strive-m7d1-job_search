@@ -1,11 +1,26 @@
+.add__background-blur {
+  filter: blur(10px);
+  transition: all 300ms;
+}
+
 .header {
-  background-image: url("../../assets/4565.jpg");
   background-color: $main-bg;
-  background-repeat: no-repeat;
-  background-position: center center;
-  height: 70vh;
+  height: 65vh;
   width: 100%;
   background-size: contain;
+
+  &__image {
+    background-image: url("../../assets/4565.jpg");
+    position: absolute;
+    z-index: 1;
+    inset: 1;
+    height: 65vh;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: all 300ms;
+  }
 }
 .nav {
   background-color: $main-bg;
@@ -24,7 +39,6 @@
   border-radius: 45px;
   box-shadow: $box-shadow;
   padding: 0 3rem !important;
-  backdrop-filter: sepia(4);
 
   &__logo {
     @include flex(center, start);
@@ -86,6 +100,7 @@
   width: 100%;
   margin-top: 14rem;
   position: absolute;
+  z-index: 2;
   @include flex(center, center);
   flex-direction: column;
 
@@ -97,7 +112,7 @@
       border-radius: $border-radius;
       border: none;
       height: 3.5rem;
-      min-width: 250px;
+      min-width: 350px;
       width: 100%;
       max-width: 600px;
       box-shadow: 0 0 5px 1px rgba(25, 77, 221, 0.4) inset, $box-shadow;

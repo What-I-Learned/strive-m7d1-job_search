@@ -22,27 +22,30 @@ fetchUrl(`https://strive-jobs-api.herokuapp.com/jobs?limit=10&skip=10`, "GET");
 const Header = () => {
   const [query, setQuery] = useState("");
   const [queryHistory, setQueryHistory] = useState([]);
+  const [blur, setBlur] = useState(false);
 
   const search = (e, query) => {
     e.preventDefault();
-
-    // if(e.key === "Enter"){
-
-    // }
-    if (!queryHistory.includes(query)) {
+    if (!queryHistory.includes(query) && query !== "") {
       setQueryHistory(queryHistory.concat("#" + query));
     }
     console.log(queryHistory);
     setQuery("");
+    setBlur(false);
   };
 
   const setandSearch = (e, query) => {
     const queryFix = query.slice(1, query.length);
+    setBlur(true);
     search(e, query);
     setQuery(queryFix);
   };
   return (
     <div className="header">
+      <div
+        className={`header__image ${blur && "add__background-blur"}`}
+        // style={{ filter: blur && "blur(10px)" }}
+      ></div>
       <div className="nav">
         <div className="nav__logo">
           <Link to="/">
@@ -67,6 +70,8 @@ const Header = () => {
             placeholder="Search for a job.."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onClick={(e) => setBlur(!blur)}
+            onBlur={(e) => setBlur(false)}
             // onKeyDown={(e) => search(e, query)}
           />
           <button className="search__icon" onClick={(e) => search(e, query)}>
