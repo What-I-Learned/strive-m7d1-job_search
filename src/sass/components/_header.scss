@@ -1,30 +1,51 @@
 .header {
+  background-image: url("../../assets/4565.jpg");
   background-color: $main-bg;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 70vh;
+  width: 100%;
+  background-size: contain;
+}
+.nav {
+  background-color: $main-bg;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 20px;
+  max-width: 1200px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
   z-index: 99;
   height: $header-height;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 45px;
+  box-shadow: $box-shadow;
+  padding: 0 3rem !important;
+  backdrop-filter: sepia(4);
 
   &__logo {
     @include flex(center, start);
-    position: absolute;
-    inset: 1;
+    display: inline-flex;
     height: 100%;
+    width: 10%;
     pointer-events: none;
-    top: 0;
 
     img {
-      height: 35px;
+      height: 45px;
     }
   }
 
   &__menu {
-    @include flex(center, end);
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
     height: 100%;
-    font-size: 1.2rem;
-    margin-top: 45px;
+    width: 90%;
+    font-size: 1.1rem;
+    text-transform: uppercase;
 
     &__item ~ &__item {
       margin-left: 39px;
@@ -38,48 +59,86 @@
       }
     }
 
+    &__item a {
+      color: $txt-secondary-color;
+      font-weight: 500;
+    }
+
     &__item.active {
       font-weight: 600;
       color: $main-color;
     }
 
-    &__item:hover {
-      color: $main-color;
+    &__item:hover a {
+      color: $txt-main-color;
+      text-decoration: none;
     }
 
+    &__left,
     &__right {
       @include flex(center, center);
       height: 100%;
     }
-    &__right {
-      font-size: 1.8rem;
-
-      &__item {
-        max-width: 4rem;
-        margin: 0 1.4rem;
-
-        a {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        @include tablet {
-          margin-left: 10px;
-        }
-      }
-
-      @include mobile {
-        font-size: 1.5rem;
-      }
-    }
   }
 }
+.hero {
+  margin: 0 auto;
+  width: 100%;
+  margin-top: 14rem;
+  position: absolute;
+  @include flex(center, center);
+  flex-direction: column;
 
-.main-nav {
-  width: 70%;
-  margin-top: 40px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 50px;
+  &__search {
+    position: relative;
+
+    input.search__bar {
+      padding: 1rem 1.5rem 1rem 4rem;
+      border-radius: $border-radius;
+      border: none;
+      height: 3.5rem;
+      min-width: 250px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 0 5px 1px rgba(25, 77, 221, 0.4) inset, $box-shadow;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    input.search__bar:focus-visible {
+      outline: 2px solid rgba(25, 77, 221, 0.4);
+    }
+    .search__icon {
+      position: absolute;
+      left: 4px;
+      top: 3px;
+      border: none;
+      @include inline-flex(center, center);
+      background-color: transparent;
+      border-radius: 50%;
+      padding: 0.5rem;
+    }
+  }
+  .past-query-container {
+    display: flex;
+    margin-top: 1rem;
+  }
+  .recent__searches__item {
+    cursor: pointer;
+    padding: 0.2rem 0.8rem;
+    margin: 0 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background-color: $main-bg;
+    border-radius: 15px;
+    box-shadow: $box-shadow;
+    transform: scale(1);
+    transition: background-color 300ms, transform 300ms;
+
+    &:hover {
+      background-color: $main-color;
+      color: #fff;
+      transform: scale(1.05);
+    }
+  }
 }
