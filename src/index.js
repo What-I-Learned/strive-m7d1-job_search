@@ -2,15 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import Layout from "./components/Layout";
+import { Provider } from "react-redux";
+import configureStore from "./store";
 import "boxicons";
 import "./sass/index.scss";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Layout />
-  </React.StrictMode>,
+  <Provider store={configureStore}>
+    <React.StrictMode>
+      <Layout />
+    </React.StrictMode>
+  </Provider>,
   document.getElementById("root")
 );
 

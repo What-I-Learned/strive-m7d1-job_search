@@ -10,6 +10,7 @@ export const fetchUrl = async (url, method) => {
     }
   } catch (err) {
     console.log(err);
+    return err;
   }
 };
 

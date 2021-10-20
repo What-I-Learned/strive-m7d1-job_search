@@ -1,17 +1,33 @@
 import React from "react";
+import Section, { SectionTitle, SectionBody } from "../components/Section";
+import Grid from "../components/Grid";
+import JobCard from "../components/JobCard";
+import { Link } from "react-router-dom";
+import fetchUrl from "../lib/fetch";
 
-function Home() {
-  return (
-    <div className="home__container">
-      <div className="home__container__item">
-        <div className="job_card__title">Compliance Officer</div>
-        <div className="job_card__comapny-name">Antidote</div>
-        <div className="job_card__category">Antidote</div>
-        <div className="job_card__type">Full time</div>
-        <div className="job_card__posted">2021-09-12</div>
-      </div>
-    </div>
-  );
+class Home extends React.Component {
+  state = {
+    jobs: [],
+  };
+
+  render() {
+    return (
+      <Section>
+        <SectionTitle>Jobs</SectionTitle>
+        <SectionBody>
+          <Grid col={4} mdCol={2} smCol={1} gap={20}>
+            <Link to="/">
+              <JobCard
+              // name={item.name}
+              // description={item.description}
+              // icon={item.icon}
+              />
+            </Link>
+          </Grid>
+        </SectionBody>
+      </Section>
+    );
+  }
 }
 
 export default Home;

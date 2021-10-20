@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "../pages/Home";
 import JobList from "../pages/JobList";
-import JobCard from "../pages/JobCard";
+import JobCard from "../components/JobCard";
 import CompanyDetails from "../pages/CompanyDetails";
 
 function Routes() {
