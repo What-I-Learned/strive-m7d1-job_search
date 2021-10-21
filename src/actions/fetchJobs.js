@@ -6,8 +6,8 @@ import {
 
 function fetchJobs() {
   return async (dispatch) => {
-    await dispatch(fetchAllJobs());
     try {
+      dispatch(fetchAllJobs());
       const resp = await fetch(
         "https://strive-jobs-api.herokuapp.com/jobs?limit=10&skip=10"
       );

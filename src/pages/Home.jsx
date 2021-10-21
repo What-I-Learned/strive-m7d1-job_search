@@ -1,13 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import Section, { SectionTitle, SectionBody } from "../components/Section";
 import Grid from "../components/Grid";
 import JobCard from "../components/JobCard";
 import { Link } from "react-router-dom";
 // import fetchUrl from "../lib/fetch";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-
+import store from "../store";
 import fetchJobData from "../actions/fetchJobs";
 
 const mapStateToProps = (state) => ({
@@ -22,7 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const Home = ({ error, jobData, loading }) => {
+const Home = ({ error, jobData, loading, fetchJobs }) => {
   // useEffect(() => {
   //   // let's check if the user is logged in!
   //   if (!userName) {
@@ -33,7 +31,7 @@ const Home = ({ error, jobData, loading }) => {
   //     history.replace('/')
   //   }
   // }, [])
-  console.log(jobData);
+  console.log(fetchJobs);
   return (
     <Section>
       <SectionTitle>Jobs</SectionTitle>

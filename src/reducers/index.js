@@ -49,7 +49,7 @@ export const mainReducer = (state = initialState, action) => {
         fetchedResults: {
           ...state.fetchedResults,
           loading: false,
-          jobData: action.payload,
+          jobData: [...action.payload],
           error: "",
         },
       };

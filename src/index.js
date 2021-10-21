@@ -6,9 +6,9 @@ import { Provider } from "react-redux";
 import configureStore from "./store";
 import "boxicons";
 import "./sass/index.scss";
-
+import fetchJobData from "./actions/fetchJobs";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+configureStore.dispatch(fetchJobData);
 ReactDOM.render(
   <Provider store={configureStore}>
     <React.StrictMode>
