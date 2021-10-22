@@ -15,9 +15,9 @@ export const mainReducer = (state = initialState, action) => {
     case ADD_JOB_TO_FAV_LIST: {
       return {
         ...state,
-        jobs: {
-          ...state.jobs,
-          favJobs: state.jobs.favorites.concat(action.payload),
+        favJobs: {
+          ...state.favJobs,
+          favJobs: state.favJobs.favorites.concat(action.payload),
         },
       };
     }
@@ -69,7 +69,7 @@ export const mainReducer = (state = initialState, action) => {
   }
 };
 
-export default mainReducer;
+// export default mainReducer;
 // export const getJobs = (state) => state.fetchedResults.jobs;
 // export const getJobsPending = (state) => state.fetchedResults.loading;
 // export const getJobsError = (state) => state.fetchedResults.error;

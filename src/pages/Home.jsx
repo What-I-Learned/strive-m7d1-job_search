@@ -3,24 +3,22 @@ import Section, { SectionTitle, SectionBody } from "../components/Section";
 import Grid from "../components/Grid";
 import JobCard from "../components/JobCard";
 import { Link } from "react-router-dom";
-// import fetchUrl from "../lib/fetch";
 import { connect } from "react-redux";
-import store from "../store";
-import fetchJobData from "../actions/fetchJobs";
+import fetchJobAction from "../actions/fetchJobs";
 
 const mapStateToProps = (state) => ({
-  error: state.fetchedResults.error,
-  jobData: state.fetchedResults.jobData,
-  loading: state.fetchedResults.loading,
+  error: state.fetchedJobs.error,
+  jobData: state.fetchedJobs.jobData,
+  loading: state.fetchedJobs.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchJobs: () => {
-    dispatch(fetchJobData());
+  getJobs: () => {
+    dispatch(fetchJobAction());
   },
 });
 
-const Home = ({ error, jobData, loading, fetchJobs }) => {
+class Home extends React.Component {
   // useEffect(() => {
   //   // let's check if the user is logged in!
   //   if (!userName) {
@@ -31,23 +29,32 @@ const Home = ({ error, jobData, loading, fetchJobs }) => {
   //     history.replace('/')
   //   }
   // }, [])
-  console.log(fetchJobs);
-  return (
-    <Section>
-      <SectionTitle>Jobs</SectionTitle>
-      <SectionBody>
-        <Grid col={4} mdCol={2} smCol={1} gap={20}>
-          <Link to="/">
-            <JobCard
-            // name={item.name}
-            // description={item.description}
-            // icon={item.icon}
-            />
-          </Link>
-        </Grid>
-      </SectionBody>
-    </Section>
-  );
-};
+
+  componentDidMount = async () => {
+    // I'll need to invoke my action creator!
+    this.props.getJobs();
+  };
+
+  render() {
+    // console.log(this.state.favoriteJobList);
+    return (
+      <Section>
+        <SectionTitle></SectionTitle>
+        <SectionBody>
+          <Grid col={4} mdCol={2} smCol={1} row_gap={5} column_gap={25}>
+            {this.props.jobData.map((job, index) => (
+              <JobCard
+                key={index}
+                job={job}
+                //  description={item.description}
+                //  icon={item.icon}
+              />
+            ))}
+          </Grid>
+        </SectionBody>
+      </Section>
+    );
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

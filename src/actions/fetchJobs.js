@@ -6,33 +6,29 @@ import {
 
 function fetchJobs() {
   return async (dispatch) => {
+    console.log("...fetching jobs");
+
+    dispatch(fetchAllJobs(true));
     try {
-      dispatch(fetchAllJobs());
-      const resp = await fetch(
-        "https://strive-jobs-api.herokuapp.com/jobs?limit=10&skip=10"
+      let resp = await fetch(
+        "https://strive-jobs-api.herokuapp.com/jobs?limit=15&skip=0"
       );
       if (resp.ok) {
-        const data = await resp.json();
-        console.log(data);
-        dispatch(fetchAllJobsSucess(data));
-        return data;
+        let jobs = await resp.json();
+        console.log(jobs.data);
+        dispatch(fetchAllJobsSucess(jobs.data));
+        dispatch(fetchAllJobsFailure(false));
+        dispatch(fetchAllJobs(false));
+      } else {
+        console.log("error");
+        dispatch(fetchAllJobs(false));
+        dispatch(fetchAllJobsFailure(true));
       }
     } catch (err) {
-      dispatch(fetchAllJobsFailure(err));
+      console.log(err);
+      dispatch(fetchAllJobs(false));
+      dispatch(fetchAllJobsFailure(true));
     }
-
-    // fetch("https://strive-jobs-api.herokuapp.com/jobs?limit=10&skip=10")
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     if (res.error) {
-    //       throw res.error;
-    //     }
-    //     dispatch(fetchAllJobsSucess(res.products));
-    //     return res.products;
-    //   })
-    //   .catch((error) => {
-    //     dispatch(fetchAllJobsFailure(error));
-    //   });
   };
 }
 

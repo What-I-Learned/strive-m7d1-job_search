@@ -77,7 +77,12 @@ class Header extends React.Component {
               className="search__bar"
               placeholder="Search for a job.."
               value={this.state.query}
-              onChange={(e) => this.setState({ query: e.target.value })}
+              onChange={(e) =>
+                this.setState({
+                  query: e.target.value,
+                  isActive: true,
+                })
+              }
               onClick={(e) => this.setState({ isActive: !this.state.isActive })}
               onBlur={(e) => this.setState({ isActive: false })}
               onKeyDown={(e) => {

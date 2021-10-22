@@ -5,6 +5,7 @@ export const ADD_JOB_TO_FAV_LIST = "ADD_JOB_TO_FAV_LIST";
 export const REMOVE_JOB_FROM_FAV_LIST = "REMOVE_JOB_FROM_FAV_LIST";
 
 export const SET_QUERY = "SET_QUERY";
+export const SET_USERNAME = "SET_USERNAME";
 
 // fetching data
 export const FETCH_JOBS_REQUEST = "FETCH_JOBS_REQUEST";
@@ -31,9 +32,10 @@ export const setQuery = (query) => ({
   payload: query,
 });
 
-export const fetchAllJobs = () => {
+export const fetchAllJobs = (state) => {
   return {
     type: "FETCH_JOBS_REQUEST",
+    payload: state,
   };
 };
 
@@ -44,9 +46,14 @@ export const fetchAllJobsSucess = (jobs) => {
   };
 };
 
-export const fetchAllJobsFailure = (errors) => {
+export const fetchAllJobsFailure = (state) => {
   return {
     type: "FETCH_JOBS_FAILURE",
-    payload: errors,
+    payload: state,
   };
 };
+
+// thanks to redux-thunk we can leverage much more powerful action creators,
+// that do not just return an action, but can return a FUNCTION
+// this function can be async, can be very complex...
+// but at the end of it we can still do the right thing and dispatch the appropriate action

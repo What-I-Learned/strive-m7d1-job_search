@@ -1,39 +1,47 @@
-import { createStore, applyMiddleware } from "redux";
-import mainReducer from "../reducers/index";
+import { createStore, applyMiddleware, combineReducers, compose } from "redux";
+import favJobReducer from "../reducers/favJobs";
+import userReducer from "../reducers/user";
+import fetchedJobsReducer from "../reducers/fetchedJobs";
+import searchQueryReducer from "../reducers/searchQuery";
 import thunk from "redux-thunk";
 
 // this file contains 2 thinngs:
 // 11.the initial state of application
 // 2. the configureStore execution
 
-// 0.
-const middlewares = [thunk];
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // 1.
 export const initialState = {
   // devide properties into chunks/subobjects
-  jobs: {
-    all: [],
+  favJobs: {
     favorites: [],
   },
   searchQuery: {
     query: "",
   },
-  fetchedResults: {
+  user: {
+    userName: "",
+  },
+  fetchedJobs: {
     loading: false,
     jobData: [],
     error: "",
   },
 };
 
+const bigReducer = combineReducers({
+  favJobs: favJobReducer,
+  searchQuery: searchQueryReducer,
+  user: userReducer,
+  fetchedJobs: fetchedJobsReducer,
+});
+
 // 2. - 3 arguments reduces, initial state
 const configureStore = createStore(
-  mainReducer,
-  applyMiddleware(...middlewares)
-  //   initialState,
-  //   window &&
-  //     window.__REDUX_DEVTOOLS_EXTENSION__ &&
-  //     window.__REDUX_DEVTOOLS_EXTENSION__()
+  bigReducer,
+  initialState,
+  composeEnhancers(applyMiddleware(thunk))
 );
 
 export default configureStore;
