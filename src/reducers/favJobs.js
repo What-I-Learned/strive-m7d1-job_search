@@ -1,21 +1,23 @@
-import { ADD_JOB_TO_FAV_LIST, REMOVE_JOB_FROM_FAV_LIST } from "../actions";
-import { initialState } from "../store";
+import { initialState } from "../store/index";
+import {
+  ADD_TO_FAVORITES,
+  REMOVE_FROM_FAVORITES,
+} from "../actions/favoriteJobs";
 
 export const favJobReducer = (state = initialState.favJobs, action) => {
+  const { type, payload } = action;
   // requires at least type
-  switch (action.type) {
-    case ADD_JOB_TO_FAV_LIST: {
+  switch (type) {
+    case "ADD_TO_FAVORITES": {
       return {
         ...state,
-        favorites: state.favorites.includes(action.payload)
-          ? state.favorites.filter((job, i) => job !== action.payload)
-          : state.favorites.concat(action.payload),
+        favorites: [...state.favorites, payload],
       };
     }
-    case REMOVE_JOB_FROM_FAV_LIST: {
+    case "REMOVE_FROM_FAVORITES": {
       return {
         ...state,
-        favorites: state.favorites.filter((job, i) => i !== action.payload),
+        favorites: state.favorites.filter((job) => job !== payload),
       };
     }
     default:

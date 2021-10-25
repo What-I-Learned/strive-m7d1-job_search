@@ -2,43 +2,46 @@ import React from "react";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { connect, useSelector, useDispatch } from "react-redux";
-import { addToFavList, removeJob } from "../actions/index";
+import { useSelector, useDispatch } from "react-redux";
+import { addJobToFav, removeJobFromFav } from "../actions/favoriteJobs";
 
-import Button from "./Button";
+// import Button from "./Button";
 
-// mapDispatchToProps is a function returning an object
-// const mapDispatchToProps = (dispatch) => ({
-//   // we need a way of adding the selectedBook to the cart products array
-//   addToFavorites: (job) => {
-//     dispatch(addToFavList(job));
-//   },
-// });
-
-// const mapStateToProps = (state) => ({
-//   userName: state.user.userName,
-// });
-
-const JobCard = ({ favJobs, job }) => {
-  const dispatch = useDispatch();
-  const favoriteJobList = useSelector((state) => state.favJobs.favorites);
-  const userName = useSelector((state) => state.user.userName);
-  const addToFavorites = (job) => dispatch(addToFavList(job));
-  const removeFromFavorites = (job) => dispatch(removeJob(job));
-
-  const [selectedJob, selectJob] = useState([]);
-  const [isOver, setIsOver] = useState(false);
+const JobCard = ({ job }) => {
+  // const [selectedJob, selectJob] = useState([]);
+  // const [isOver, setIsOver] = useState(false);
   const [coords, setCoords] = useState({
     x: 0,
     y: 0,
     over: false,
   });
 
+  // mapStateToProps
+  const favoriteJobList = useSelector((state) => state.favJobs.favorites);
+  // const userName = useSelector((state) => state.user.userName);
+
+  // dispatch props
+  const dispatch = useDispatch();
+  const addToFavorites = (job) => dispatch(addJobToFav(job));
+  const removeFromFavorites = (job) => dispatch(removeJobFromFav(job));
+
+  // console.log(favoriteJobList);
+
+  const toggleSaved = (e) => {
+    const isSaved = favoriteJobList.includes(job._id);
+    console.log(isSaved);
+    console.log(favoriteJobList);
+    if (isSaved) {
+      removeFromFavorites(job);
+      e.target.classList.remove("clicked");
+    } else {
+      addToFavorites(job);
+      e.target.classList.add("clicked");
+    }
+  };
+
   // onClick={(e) => this.setState({ isActive: !this.state.isActive })}
 
-  useEffect(() => {
-    // console.log(selectedJob);
-  }, []);
   const moveShadow = (e) => {
     if (
       e.target.className === "job_card" ||
@@ -54,25 +57,7 @@ const JobCard = ({ favJobs, job }) => {
       setCoords({ x: xWalk, y: yWalk, over: true });
     }
   };
-  const addToFavoriteJobs = (e, job) => {
-    console.log("jobid " + job._id);
-    console.log("yeas");
-    selectJob(selectedJob.concat(job));
-    e.target.classList.add("clicked");
-    addToFavorites(job);
 
-    // console.log(favoriteJobList.includes(job._id));
-  };
-  const removeFromFavorit = (e, job) => {
-    console.log("no");
-
-    removeFromFavorites(job);
-    e.target.classList.remove("clicked");
-    selectJob(selectedJob.filter((s) => job._id !== s._id));
-    // console.log(favoriteJobList.includes(job._id));
-  };
-
-  const addClass = (e) => {};
   return (
     <div
       className="job_card"
@@ -86,24 +71,13 @@ const JobCard = ({ favJobs, job }) => {
           : `0px 0px 10px 0px rgba(28, 92, 189, 0.05)`,
       }}
     >
-      <span
-        className="job_card__like"
-        // onMouseOver={(e) => console.log(e.target)}
-        onClick={(e) => {
-          selectedJob.includes(job._id) === true
-            ? removeFromFavorit(e, job)
-            : addToFavoriteJobs(e, job);
-        }}
-      >
+      <span className="job_card__like" onClick={(e) => toggleSaved(e)}>
         <svg
           className="like-heart"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          // style={{
-          //   fill: favoriteJobList.includes(job._id) ? `#d74a41` : `transparent`,
-          // }}
         >
           <path d="M20.205 4.791a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z"></path>
         </svg>
@@ -144,4 +118,4 @@ JobCard.propTypes = {
   publication_date: PropTypes.instanceOf(Date).isRequired,
 };
 
-export default connect(null, null)(JobCard);
+export default JobCard;
