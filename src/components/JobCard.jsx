@@ -28,6 +28,7 @@ const JobCard = ({ job }) => {
   // console.log(favoriteJobList);
 
   const toggleSaved = (e) => {
+    console.log(job._id);
     const isSaved = favoriteJobList.includes(job._id);
     console.log(isSaved);
     console.log(favoriteJobList);
